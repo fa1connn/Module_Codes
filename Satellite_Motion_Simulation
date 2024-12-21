@@ -1,0 +1,77 @@
+#include<iostream>
+#include<cmath>
+#include<limits>
+using namespace std;
+
+const double M_PI = 3.14159265358979323846;
+const double G = 6.67430e-11; // (N * m^2 / kg^2)
+const double R = 6371000;     // m
+const double M = 5.972e24;    // kg
+
+double calculateVelocity(double h) {
+    double r = R + h;
+    return sqrt(G * M / r);
+}
+
+double calculatePeriod(double h) {
+    double r = R + h;
+    return 2 * M_PI * sqrt(pow(r, 3) / (G * M));
+}
+
+int main() {
+    int options;
+    do {
+        cout << "Welcome to my program to calculate some values about your satellite!" << endl;
+        cout << "1: Calculate velocity of satellite." << endl;
+        cout << "2: Calculate period of satellite." << endl;
+        cout << "3: Terminate the program." << endl;
+        cout << "Please choose one of these options: ";
+        cin >> options;
+
+        if (options < 1 || options > 3) {
+            cout << "Your choice is not valid for this program. Please enter a number between 1-3!" << endl;
+            continue;
+        }
+
+        if (options == 3) {
+            cout << "You terminated the program. Thanks for your participation!" << endl;
+            break;
+        }
+
+        double h, m;
+        cout << "WARNING! These values should be positive." << endl;
+        cout << "Please enter your h value (in meters): ";
+        cin >> h;
+        cout << "Please enter your m value (in kg): ";
+        cin >> m;
+
+        if (h <= 0 || m <= 0) {
+            cout << "Error: Height and mass must be positive values." << endl;
+            continue;
+        }
+
+        switch (options) {
+            case 1: {
+                double v = calculateVelocity(h);
+                cout << "The velocity of the satellite: " << v << " m/s" << endl;
+                break;
+            }
+            case 2: {
+                double T = calculatePeriod(h);
+                cout << "The period of the satellite: " << T << " seconds" << endl;
+                break;
+            }
+        }
+
+        cout << "Do you want to perform another calculation? (y/n): ";
+        char anotherCalculation;
+        cin >> anotherCalculation;
+        if (anotherCalculation == 'n' || anotherCalculation == 'N') {
+            cout << "Exiting the program. Thanks for your participation!" << endl;
+            break;
+        }
+
+    } while (true);
+
+    return 0;
+}
