@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    double speed, mass, mpendulum, lpendulum, commonspeed, maxheight, ikinetic, lkinetic;
+    double g = 9.8;
+
+    cout << "Welcome to Ballistic Pendulum and Collision Dynamics Programming!" << endl;
+
+    do {
+        cout << "Initial speed of the bullet (positive value): ";
+        cin >> speed;
+        if (speed <= 0)
+            cout << "Please enter a valid positive value." << endl;
+    } while (speed <= 0);
+
+    do {
+        cout << "The mass of the bullet (positive value): ";
+        cin >> mass;
+        if (mass <= 0)
+            cout << "Please enter a valid positive value." << endl;
+    } while (mass <= 0);
+
+    do {
+        cout << "The mass of the pendulum (positive value): ";
+        cin >> mpendulum;
+        if (mpendulum <= 0)
+            cout << "Please enter a valid positive value." << endl;
+    } while (mpendulum <= 0);
+
+    do {
+        cout << "The length of the pendulum (positive value): ";
+        cin >> lpendulum;
+        if (lpendulum <= 0)
+            cout << "Please enter a valid positive value." << endl;
+    } while (lpendulum <= 0);
+
+    ikinetic = 0.5 * (mass * speed * speed);
+    commonspeed = (mass * speed) / (mass + mpendulum);
+    maxheight = (commonspeed * commonspeed) / (2 * g);
+    lkinetic = 0.5 * ((mass + mpendulum) * commonspeed * commonspeed);
+
+    cout << "The common velocity after the collision is " << commonspeed << " m/s." << endl;
+    cout << "Max height is " << maxheight << " meters." << endl;
+    cout << "Initial kinetic energy is " << ikinetic << " joules." << endl;
+    cout << "Last kinetic energy is " << lkinetic << " joules." << endl;
+
+    return 0;
+}
