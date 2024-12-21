@@ -1,0 +1,55 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+const float PI = 3.14159;
+
+int selection(int& option)
+{
+	cout << "\nSelect the process which you want to be done.\n" << "1-) Calculate\n" << "2-) Exit\n\n" << "Your choice : ";
+	cin >> option;
+	return option;
+}
+
+int main()
+{
+	int option = 0;
+	double initial_speedA = 1, speedA = 1, speedB = 1, angleA = 1, angleB = 1, kineticLossA = 1;
+	cout << "-----Welcome to the project that calculates the collision of asteroids-----" << endl << endl;
+
+	do
+	{
+		selection(option);
+		while (option != 1 && option != 2)
+		{
+			cout << "You entered invalid number. Please enter 1 or 2 !\n\n";
+			selection(option);
+		}
+
+		if (option == 1)
+		{
+			cout << "\nFirst of all, you need to enter initial speed, angle of A, and angle of B (after the collision).\n\n";
+			cout << "Initial speed : ";
+			cin >> initial_speedA;
+			cout << "\nAngle of A : ";
+			cin >> angleA;
+			cout << "\nAngle of B : ";
+			cin >> angleB;
+
+			angleA = (angleA * PI) / 180;
+			angleB = (angleB * PI) / 180;
+
+			speedB = (initial_speedA) / ((sin(angleB) * cos(angleA)) / sin(angleA) + cos(angleB));
+			speedA = (speedB * sin(angleB)) / (sin(angleA));
+			kineticLossA = 100 - ((speedA / initial_speedA) * 100);
+
+			cout << "\nThe speed of A = " << speedA << endl;
+			cout << "The speed of B = " << speedB << endl;
+			cout << "The fraction of the original kinetic energy of asteroid A dissipates during this collision is " << kineticLossA << "% ." << endl;
+		}
+
+	} while (option != 2);
+
+	cout << "\nYou terminated the program, have a nice day!\n" << endl;
+	cout << "\t\t---------------------------------------------------------------------------\n";
+	return 0;
+}
