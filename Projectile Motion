@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    const double g = 9.81; // Gravitational acceleration
+    const double PI = 3.14159265358979323846; // Pi constant
+
+    // Taking inputs from the user
+    double speed, angle, height, person_distance, person_height;
+    cout << "Initial speed (m/s): ";
+    cin >> speed;
+    cout << "Angle of projection (degrees): ";
+    cin >> angle;
+    cout << "Initial height (m): ";
+    cin >> height;
+    cout << "Distance of the person from the edge (m): ";
+    cin >> person_distance;
+    cout << "Height of the person (m): ";
+    cin >> person_height;
+
+    // Converting angle to radians
+    double rad_angle = angle * PI / 180.0;
+
+    // Time to hit the ground
+    double time = (speed * sin(rad_angle) + sqrt(pow(speed * sin(rad_angle), 2) + 2 * g * height)) / g;
+
+    // Horizontal distance
+    double x_hit = speed * cos(rad_angle) * time;
+
+    // Checking if it hits the person
+    double time_to_person = person_distance / (speed * cos(rad_angle));
+    double y_at_person = height + speed * sin(rad_angle) * time_to_person - 0.5 * g * pow(time_to_person, 2);
+
+    cout << "\nThe snowball hits the ground in " << time << " seconds." << endl;
+    cout << "Horizontal distance to the point of impact: " << x_hit << " meters." << endl;
+
+    if (time_to_person <= time && y_at_person >= 0 && y_at_person <= person_height) {
+        cout << "The snowball hits the person!" << endl;
+    }
+    else {
+        cout << "The snowball does NOT hit the person." << endl;
+    }
+
+    return 0;
+}
